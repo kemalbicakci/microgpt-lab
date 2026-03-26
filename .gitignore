@@ -1,0 +1,7 @@
+model.pkl
+__pycache__/
+*.pyc
+.DS_Store
+input.txt
+isimler.zip
+original.zip
