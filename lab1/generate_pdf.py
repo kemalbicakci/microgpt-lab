@@ -232,6 +232,7 @@ def build_lab(path):
         "microgpt-lab/",
         "├── microgpt.py       # Orijinal tek-dosya uygulama (değiştirmeyin)",
         "├── isimler.txt       # 2 446 Türkçe isim içeren veri seti",
+        "├── lab1.pdf          # Bu doküman",
         "└── lab1/             # Oluşturacağınız dosyalar buraya gelecek",
     ])
 
@@ -692,5 +693,5 @@ def build_answers(path):
 
 # ─────────────────────────────────────────────────────────────────────────────
 if __name__ == "__main__":
-    build_lab(os.path.join(HERE, "lab1.pdf"))
+    build_lab(os.path.join(HERE, "..", "lab1.pdf"))
     build_answers(os.path.join(HERE, "lab1-cevaplar.pdf"))
