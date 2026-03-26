@@ -14,12 +14,10 @@ microgpt-lab/
 ├── isimler.txt          # 2 446 Türkçe isim — eğitim veri seti
 ├── lab1.pdf             # Lab 1 görevleri ve sorular
 └── lab1/
-    ├── lab1.pdf         # Lab görevleri ve sorular
-    ├── lab1-cevaplar.pdf# Cevap anahtarı
-    ├── train.py         # Modeli eğitir → model.pkl kaydeder
-    ├── test.py          # model.pkl yükler, isim üretir
-    ├── test_temperature.py  # --temperature argümanıyla isim üretir
-    └── generate_pdf.py  # lab1.pdf ve lab1-cevaplar.pdf üretir
+    ├── lab1-cevaplar.pdf    # Cevap anahtarı
+    ├── train.py             # Modeli eğitir → model.pkl kaydeder
+    ├── test.py              # model.pkl yükler, isim üretir
+    └── test_temperature.py  # --temperature argümanıyla isim üretir
 ```
 
 ---
@@ -68,12 +66,6 @@ python lab1/test_temperature.py --temperature 2.0   # rastgele
 ## Gereksinimler
 
 Python 3.x — ek kütüphane gerekmez.
-
-PDF üretmek için:
-```bash
-pip install fpdf2
-python lab1/generate_pdf.py
-```
 
 ---
 
