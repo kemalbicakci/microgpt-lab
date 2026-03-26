@@ -10,11 +10,13 @@ Kod; öz-farklılaşma (autograd), transformer mimarisi, Adam optimizörü ve ka
 
 ```
 microgpt-lab/
+├── README.md            # Bu dosya
 ├── microgpt.py          # Orijinal tek-dosya microGPT uygulaması
 ├── isimler.txt          # 2 446 Türkçe isim — eğitim veri seti
 ├── lab1.pdf             # Lab 1 görevleri ve sorular
 └── lab1/
     ├── lab1-cevaplar.pdf    # Cevap anahtarı
+    ├── model.pkl            # Eğitilmiş model ağırlıkları
     ├── train.py             # Modeli eğitir → model.pkl kaydeder
     ├── test.py              # model.pkl yükler, isim üretir
     └── test_temperature.py  # --temperature argümanıyla isim üretir
