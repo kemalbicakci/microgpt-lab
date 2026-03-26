@@ -28,41 +28,15 @@ microgpt-lab/
 ## Lab 1 — Alıştırmalar
 
 ### Alıştırma 1: Token Analizi
-`isimler.txt` dosyasındaki Türkçe isimler kullanılarak kaç farklı token (karakter) bulunduğu hesaplanır.
-
-```
-vocab_size: 31   # 30 benzersiz karakter + 1 BOS tokeni
-```
+`isimler.txt` dosyasındaki Türkçe isimler kullanılarak kaç farklı token (karakter) bulunduğunu hesaplayın.
 
 ### Alıştırma 2: Modüler Yapı
 
-Orijinal tek-dosya kod eğitim ve test olmak üzere ikiye ayrılır. Model ağırlıkları `pickle` ile kaydedilip yüklenir.
-
-```bash
-# Eğit ve kaydet
-python train.py
-
-# Yükle ve üret
-python test.py
-```
+Orijinal tek-dosya kodu eğitim ve test olmak üzere ikiye ayırın. Model ağırlıklarını `pickle` ile kaydedin ve yükleyin.
 
 ### Alıştırma 3: Temperature Parametresi
 
-`--temperature` argümanıyla farklı yaratıcılık seviyelerinde isim üretimi yapılır.
-
-```bash
-python test_temperature.py --temperature 0.1   # tekrarlayan
-python test_temperature.py --temperature 0.5   # dengeli
-python test_temperature.py --temperature 1.0   # çeşitli
-python test_temperature.py --temperature 2.0   # rastgele
-```
-
-| Temperature | Davranış |
-|---|---|
-| 0.1 | Aynı isimler tekrarlar, minimum çeşitlilik |
-| 0.5 | Türkçe isim kalıplarına uyan dengeli çıktı |
-| 1.0 | Daha çeşitli, bazıları gerçek dışı kombinasyonlar |
-| 2.0 | Anlamsız karakter dizileri |
+`--temperature` komut satırı argümanını ekleyerek farklı yaratıcılık seviyelerinde isim üretimi yapın. Farklı temperature değerlerinin (0.1, 0.5, 1.0, 2.0) çıktıyı nasıl etkilediğini gözlemleyin.
 
 ---
 
