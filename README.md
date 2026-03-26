@@ -21,7 +21,7 @@ microgpt-lab/
 
 ## Cevap Dosyaları
 
-`lab1-cevap.zip` şifreli bir arşivdir. Şifre YouTube kanalımda verilecektir.
+`lab1-cevap.zip` şifreli bir arşivdir. Şifre [YouTube kanalımda](https://www.youtube.com/@kemalbicakci) verilecektir.
 
 ---
 
