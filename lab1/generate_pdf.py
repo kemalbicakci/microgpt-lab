@@ -572,7 +572,7 @@ def build_answers(path):
             "pickle her Python float'ı ~9 byte ile kodlar (1 opcode + 8 byte veri).",
             "  4 320 params × 9 byte ≈ 39 KB  +  dict/list/string overhead ≈ 1–2 KB",
             "  Toplam ≈ 40–42 KB",
-            "Not: Orijinal microgpt (vocab_size≈65) ile daha fazla parametre → daha büyük dosya.",
+            "Not: Orijinal microgpt (vocab_size=27, sadece a-z + BOS) ile daha az parametre → daha küçük dosya.",
             "Numpy/safetensors formatları daha verimli serileştirme sağlar.",
         ], q_number=2
     )
@@ -591,7 +591,7 @@ def build_answers(path):
             "  mlp_fc2     : 16 × 64 = 1 024  (n_embd × 4*n_embd)",
             "  TOPLAM      : 496 + 256 + 496 + 1024 + 1024 + 1024 = 4 320",
             "",
-            "Not: isimler.txt vocab_size=31 olduğundan orijinal kodun (vocab~65) çıktısından farklıdır.",
+            "Not: isimler.txt vocab_size=31 olduğundan orijinal kodun (vocab_size=27) çıktısından farklıdır.",
         ], q_number=3
     )
 
