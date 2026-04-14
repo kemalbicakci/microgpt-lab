@@ -258,3 +258,70 @@ for _ in range(100):
 print()
 print(f"  Attention doğruluk: {correct_a}/100 = %{correct_a}")
 print(f"  MLP-Only  doğruluk: {correct_b}/100 = %{correct_b}")
+
+# ── Attention ağırlıkları görselleştirme ──────────────────────────────────────
+# pid=6 (son filler) konumunda model hangi pozisyona ne kadar bakıyor?
+def fwd_attn_weights(tid, pid, keys, vals):
+    """fwd_attn ile aynı, ama ayrıca her kafanın aw listesini de döndürür."""
+    x = rmsnorm([t+p for t,p in zip(A['wte'][tid], A['wpe'][pid])])
+    xr=x; x=rmsnorm(x)
+    q=linear(x,A['wq']); k=linear(x,A['wk']); v=linear(x,A['wv'])
+    keys.append(k); vals.append(v)
+    xa=[]; head_weights=[]
+    for h in range(n_head):
+        hs=h*head_dim
+        qh=q[hs:hs+head_dim]
+        kh=[ki[hs:hs+head_dim] for ki in keys]
+        vh=[vi[hs:hs+head_dim] for vi in vals]
+        al=[sum(qh[j]*kh[t][j] for j in range(head_dim))/head_dim**.5 for t in range(len(kh))]
+        aw=softmax(al)
+        head_weights.append([w.data for w in aw])
+        xa+=[sum(aw[t]*vh[t][j] for t in range(len(vh))) for j in range(head_dim)]
+    x=linear(xa,A['wo']); x=[a+b for a,b in zip(x,xr)]
+    xr=x; x=rmsnorm(x); x=linear(x,A['fc1']); x=[xi.relu() for xi in x]
+    x=linear(x,A['fc2']); x=[a+b for a,b in zip(x,xr)]
+    return linear(x,A['lm_head']), head_weights
+
+print()
+print("═"*68)
+print("Attention Ağırlıkları — pid=6 (son filler → anchor tahmini)")
+print("Her satır bir kafa. Sütunlar: pid 0=BOS, 1=anchor, 2-5=filler, 6=son_filler")
+print("─"*68)
+
+random.seed(77)
+for ex in range(4):
+    first  = random.choice(ANCHOR)
+    middle = [random.choice(FILLER) for _ in range(SEQ_LEN-2)]
+    seq    = first + ''.join(middle)          # 6 karakter prefix
+    tokens = [BOS] + [uchars.index(c) for c in seq]
+    n      = len(tokens)                      # 7 token
+
+    ks, vs = [], []
+    for pid in range(n):
+        logits, hw = fwd_attn_weights(tokens[pid], pid, ks, vs)
+        if pid == KEY_POS:                    # pid=6
+            key_hw = hw                       # 4 kafa × 7 pozisyon
+
+    # Başlık
+    token_labels = ['BOS'] + list(seq)        # ['BOS','a','b','c','d','f','e']
+    header = '  '.join(f'{lbl:>5s}' for lbl in token_labels)
+    print(f"\n  Dizi: {seq!r}  (anchor='{first}')")
+    print(f"  {'pos:':8s}  {header}")
+    print(f"  {' ':8s}  {'  '.join(f'{i:>5d}' for i in range(n))}")
+
+    for h, aw in enumerate(key_hw):
+        bar = '  '.join(
+            f'{"█"*int(round(w*10)):>5s}' if w > 0.05 else f'{"·":>5s}'
+            for w in aw
+        )
+        pct = '  '.join(f'{w:5.2f}' for w in aw)
+        print(f"  kafa {h+1}:  {pct}")
+
+    # Ortalama ağırlık (4 kafa ortalaması)
+    avg = [sum(key_hw[h][p] for h in range(n_head))/n_head for p in range(n)]
+    avg_str = '  '.join(f'{w:5.2f}' for w in avg)
+    print(f"  {'ort:':8s}  {avg_str}  ← pos {avg.index(max(avg))} en yüksek")
+
+print()
+print("Beklenen: pid=1 (anchor pozisyonu) en yüksek ağırlığı almalı.")
+print("═"*68)
