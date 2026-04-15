@@ -1,6 +1,6 @@
 # microGPT Lab
 
-Andrej Karpathy'nin sıfırdan yazdığı [microGPT](https://github.com/karpathy/microGPT) uygulaması üzerine Türkçe isim üretimi odaklı laboratuvar çalışması.
+Andrej Karpathy'nin sıfırdan yazdığı [microGPT](https://github.com/karpathy/microGPT) uygulaması üzerine transformer mimarisini derinlemesine anlamak için tasarlanmış laboratuvar serisi.
 
 Kod; öz-farklılaşma (autograd), transformer mimarisi, Adam optimizörü ve karakter düzeyinde tokenizasyonu **harici kütüphane kullanmadan** gerçekleştirmektedir.
 
